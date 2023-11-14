@@ -1,5 +1,7 @@
 import { Drawer, Box, useTheme, Avatar, Divider, List, Icon } from "@mui/material"
 import { ListItemButton, ListItemIcon, ListItemText, } from "@mui/material"
+import { useMediaQuery } from "@mui/material";
+import { useDrawerContext } from "../../contexts";
 
 interface IAppMenuLateral {
     children: React.ReactNode
@@ -8,10 +10,12 @@ interface IAppMenuLateral {
 export const MenuLateral: React.FC<IAppMenuLateral> = ({children}) => {
 
     const theme = useTheme();
+    const smDown = useMediaQuery(theme.breakpoints.down('sm'));
 
+    const {isDrawerOpen, toggleDrawerOpen} = useDrawerContext();
     return (
         <>
-            <Drawer variant="permanent">
+            <Drawer open={isDrawerOpen} variant={smDown ? 'temporary' : 'permanent'} onClose={toggleDrawerOpen}>
                 <Box width={theme.spacing(28)} height="100%" display="flex" flexDirection="column">
                     <Box width="100%" height={theme.spacing(20)} display="flex" alignItems="center" justifyContent="center">
                         <Avatar 
